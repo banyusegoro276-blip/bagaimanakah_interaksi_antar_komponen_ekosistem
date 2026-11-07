@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LKPD Interaktif: Bagaimanakah Interaksi antara Komponen Penyusun Ekosistem? - MGMP IPA MTs Kota Malang</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for Real-time Ecosystem Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        madrasah: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full bg-slate-50 text-slate-800 font-sans flex flex-col antialiased">
+
+    <!-- Top Header Bar -->
+    <header class="bg-madrasah-800 text-white shadow-md sticky top-0 z-50 print:hidden">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-3">
+                <div class="bg-madrasah-600 p-2 rounded-lg text-white font-bold text-xl shadow-inner">
+                    🌿
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide">MGMP IPA MTs KOTA MALANG</h1>
+                    <p class="text-xs text-madrasah-100">LKPD Interaktif Kurikulum Mendalam: Bagaimanakah Interaksi antara Komponen Penyusun Ekosistem?</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-sm">
+                <span class="bg-madrasah-700 px-3 py-1 rounded-full text-xs font-medium border border-madrasah-600">
+                    Fase D / Kelas VIII MTs
+                </span>
+                <button onclick="window.print()" class="bg-white text-madrasah-800 font-semibold px-3 py-1.5 rounded-lg text-xs hover:bg-madrasah-50 transition shadow flex items-center gap-1">
+                    🖨️ Cetak / Ekspor Laporan
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+
+        <!-- Tab Navigation -->
+        <nav class="flex flex-wrap gap-2 border-b border-slate-200 pb-3 print:hidden">
+            <button onclick="switchTab('identitas')" id="btn-identitas" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition bg-madrasah-600 text-white shadow">
+                1. Identitas &amp; Tujuan
+            </button>
+            <button onclick="switchTab('materi')" id="btn-materi" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+                2. Materi &amp; Konsep
+            </button>
+            <button onclick="switchTab('simulasi')" id="btn-simulasi" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+                3. Simulasi Jaring Makanan 🎮
+            </button>
+            <button onclick="switchTab('tabel')" id="btn-tabel" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+                4. Tabel Pengamatan
+            </button>
+            <button onclick="switchTab('evaluasi')" id="btn-evaluasi" class="tab-btn px-4 py-2 rounded-lg font-medium text-sm transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+                5. Latihan HOTS &amp; Kuis
+            </button>
+        </nav>
+
+        <!-- TAB 1: IDENTITAS & TUJUAN -->
+        <section id="tab-identitas" class="tab-content space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-madrasah-700 font-semibold text-xs uppercase tracking-wider">Lembar Kerja Peserta Didik Interaktif Berbasis Adiwiyata</span>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">Bagaimanakah Interaksi antara Komponen Penyusun Ekosistem?</h2>
+                    <p class="text-slate-600 text-sm mt-1">Dikembangkan oleh Tim MGMP IPA Madrasah Tsanawiyah (MTs) Kota Malang</p>
+                </div>
+
+                <!-- Input Identitas Siswa -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-madrasah-50 p-4 rounded-xl border border-madrasah-100">
+                    <div>
+                        <label class="block text-xs font-semibold text-madrasah-800 uppercase mb-1">Nama Lengkap Siswa / Anggota Kelompok:</label>
+                        <input type="text" id="input-nama" placeholder="Masukkan nama Anda..." class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-madrasah-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-madrasah-800 uppercase mb-1">Kelas / Nomor Absen:</label>
+                        <input type="text" id="input-kelas" placeholder="Contoh: Kelas 8B / 18" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-madrasah-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-semibold text-madrasah-800 uppercase mb-1">Madrasah Asal (MTs Kota Malang):</label>
+                        <input type="text" id="input-madrasah" placeholder="Contoh: MTsN 2 Kota Malang" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-madrasah-500">
+                    </div>
+                </div>
+
+                <!-- Tujuan Pembelajaran -->
+                <div class="space-y-3">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <span class="text-madrasah-600">🎯</span> Tujuan Pembelajaran (Kurikulum Mendalam / Kurikulum Merdeka)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <span class="inline-block bg-madrasah-100 text-madrasah-800 text-xs font-bold px-2 py-0.5 rounded mb-2">1. Analisis Konsep</span>
+                            <p class="text-xs text-slate-700 leading-relaxed">Peserta didik mampu menganalisis interaksi antara komponen biotik dan abiotik serta bentuk simbiosis dalam ekosistem dengan cermat.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <span class="inline-block bg-madrasah-100 text-madrasah-800 text-xs font-bold px-2 py-0.5 rounded mb-2">2. Simulasi Interaktif</span>
+                            <p class="text-xs text-slate-700 leading-relaxed">Peserta didik mampu mengoperasikan simulasi jaring makanan digital untuk menguji kestabilan populasi organisme akibat perubahan lingkungan.</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <span class="inline-block bg-madrasah-100 text-madrasah-800 text-xs font-bold px-2 py-0.5 rounded mb-2">3. Karakter Adiwiyata</span>
+                            <p class="text-xs text-slate-700 leading-relaxed">Peserta didik menunjukkan kepedulian ekologis terhadap kelestarian lingkungan alam di wilayah Malang Raya.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pt-4">
+                    <button onclick="switchTab('materi')" class="bg-madrasah-600 hover:bg-madrasah-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                        Lanjut ke Ringkasan Materi ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: MATERI & KONSEP -->
+        <section id="tab-materi" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h2 class="text-xl font-bold text-slate-900">Ringkasan Konsep: Interaksi dalam Ekosistem</h2>
+                    <p class="text-slate-600 text-sm mt-1">Kajian interaksi makhluk hidup dengan lingkungan sekitar.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="bg-madrasah-50 border-l-4 border-madrasah-600 p-4 rounded-r-xl">
+                            <h3 class="font-bold text-madrasah-900 text-sm">1. Interaksi Biotik dan Abiotik</h3>
+                            <p class="text-xs text-slate-700 mt-1 leading-relaxed">
+                                Komponen biotik (makhluk hidup) sangat bergantung pada komponen abiotik (suhu, cahaya matahari, air, tanah, dan oksigen). Sebaliknya, aktivitas makhluk hidup juga dapat mempengaruhi kondisi lingkungan fisiknya.
+                            </p>
+                        </div>
+                        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl">
+                            <h3 class="font-bold text-emerald-900 text-sm">2. Rantai Makanan &amp; Jaring Makanan</h3>
+                            <p class="text-xs text-slate-700 mt-1 leading-relaxed">
+                                Energi mengalir melalui tingkat trofik: Produsen (tumbuhan hijau) → Konsumen I (Herbivora) → Konsumen II (Karnivora/Omnivora) → Pengurai (Bakteri &amp; Jamur). Kumpulan rantai makanan yang saling terhubung membentuk jaring makanan yang kompleks.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-center space-y-3">
+                        <h3 class="font-bold text-slate-800 text-sm">Bentuk Simbiosis Utama:</h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                                <span class="font-bold text-madrasah-800">Mutualisme (+ / +):</span> Kedua pihak diuntungkan (contoh: lebah dan bunga).
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                                <span class="font-bold text-madrasah-800">Komensalisme (+ / 0):</span> Satu diuntungkan, pihak lain tidak terpengaruh (contoh: anggrek dan pohon inang).
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                                <span class="font-bold text-madrasah-800">Parasitisme (+ / -):</span> Satu diuntungkan, pihak lain dirugikan (contoh: benalu dan pohon mangga).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between pt-4">
+                    <button onclick="switchTab('identitas')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+                        ← Kembali
+                    </button>
+                    <button onclick="switchTab('simulasi')" class="bg-madrasah-600 hover:bg-madrasah-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                        Buka Simulasi Jaring Makanan ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: SIMULASI EKOSISTEM INTERAKTIF -->
+        <section id="tab-simulasi" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
+                <div class="border-b border-slate-100 pb-4 flex flex-wrap justify-between items-center gap-2">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Simulasi Interaktif Populasi &amp; Jaring Makanan</h2>
+                        <p class="text-slate-600 text-sm mt-1">Ubah variabel populasi dan lingkungan di bawah untuk mengamati dinamika ekosistem secara real-time.</p>
+                    </div>
+                    <button onclick="resetSimulation()" class="bg-amber-100 text-amber-800 hover:bg-amber-200 font-medium px-3 py-1.5 rounded-lg text-xs transition">
+                        🔄 Reset Simulasi
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Control Panel (Sliders) -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="font-bold text-slate-800 text-sm border-b pb-2">🎛️ Kontrol Komponen Ekosistem</h3>
+                        
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Populasi Produsen (Rumput/Tanaman):</span>
+                                <span id="val-produsen" class="text-madrasah-700 font-bold">100 unit</span>
+                            </div>
+                            <input type="range" id="slider-produsen" min="20" max="200" value="100" step="5" oninput="updateSimulation()" class="w-full accent-madrasah-600 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Populasi Herbivora (Belalang/Kelinci):</span>
+                                <span id="val-herbivora" class="text-blue-700 font-bold">60 ekor</span>
+                            </div>
+                            <input type="range" id="slider-herbivora" min="10" max="150" value="60" step="5" oninput="updateSimulation()" class="w-full accent-blue-600 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Populasi Karnivora (Katak/Burung):</span>
+                                <span id="val-karnivora" class="text-purple-700 font-bold">30 ekor</span>
+                            </div>
+                            <input type="range" id="slider-karnivora" min="5" max="100" value="30" step="5" oninput="updateSimulation()" class="w-full accent-purple-600 cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                                <span>Curah Hujan &amp; Suhu (Abiotik):</span>
+                                <span id="val-abiotik" class="text-amber-700 font-bold">Normal (70%)</span>
+                            </div>
+                            <input type="range" id="slider-abiotik" min="10" max="100" value="70" step="5" oninput="updateSimulation()" class="w-full accent-amber-600 cursor-pointer">
+                        </div>
+
+                        <div class="bg-white p-3 rounded-lg border border-slate-200 text-xs space-y-1">
+                            <div class="font-bold text-slate-800">Status Keseimbangan Ekosistem:</div>
+                            <div class="flex justify-between items-center">
+                                <span id="env-status" class="font-bold text-madrasah-600">SEIMBANG (STABIL)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart & Realtime Visual Display -->
+                    <div class="lg:col-span-2 bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-slate-800 text-sm">📈 Grafik Dinamika Populasi Antar Komponen</h3>
+                            <span class="text-xs text-slate-500">Real-Time Chart.js</span>
+                        </div>
+                        
+                        <!-- Canvas for Chart.js -->
+                        <div class="w-full h-64 bg-white p-3 rounded-xl border border-slate-200 relative flex items-center justify-center">
+                            <canvas id="ecosystemChart"></canvas>
+                        </div>
+
+                        <!-- Organism Summary Cards -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                                <div class="text-[10px] text-slate-500 uppercase font-semibold">Produsen</div>
+                                <div id="stat-p" class="text-base font-bold text-madrasah-700 mt-0.5">100</div>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                                <div class="text-[10px] text-slate-500 uppercase font-semibold">Herbivora</div>
+                                <div id="stat-h" class="text-base font-bold text-blue-600 mt-0.5">60</div>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                                <div class="text-[10px] text-slate-500 uppercase font-semibold">Karnivora</div>
+                                <div id="stat-k" class="text-base font-bold text-purple-600 mt-0.5">30</div>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                                <div class="text-[10px] text-slate-500 uppercase font-semibold">Pengurai</div>
+                                <div id="stat-d" class="text-base font-bold text-amber-600 mt-0.5">45</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between pt-4">
+                    <button onclick="switchTab('materi')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+                        ← Kembali
+                    </button>
+                    <button onclick="switchTab('tabel')" class="bg-madrasah-600 hover:bg-madrasah-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                        Lanjut ke Tabel Pengamatan ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: TABEL PENGAMATAN INTERAKTIF -->
+        <section id="tab-tabel" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h2 class="text-xl font-bold text-slate-900">Tabel Pengamatan Interaksi Komponen Ekosistem</h2>
+                    <p class="text-slate-600 text-sm mt-1">Catat hasil pengamatan dari simulasi jaring makanan atau studi lapangan di sekitar madrasah/kota Malang.</p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse text-xs md:text-sm">
+                        <thead>
+                            <tr class="bg-madrasah-800 text-white">
+                                <th class="p-3 text-left border border-madrasah-700 w-12">No</th>
+                                <th class="p-3 text-left border border-madrasah-700 w-1/4">Jenis Interaksi</th>
+                                <th class="p-3 text-left border border-madrasah-700 w-1/3">Contoh Organisme / Faktor</th>
+                                <th class="p-3 text-left border border-madrasah-700">Analisis Peran &amp; Dampak Timbal Balik</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="p-3 border border-slate-200 text-center font-medium">1</td>
+                                <td class="p-3 border border-slate-200 font-semibold">Biotik dengan Abiotik</td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" value="Cahaya Matahari &amp; Tanaman Hijau (Produsen)" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" placeholder="Tuliskan analisis hubungan timbal balik..." class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border border-slate-200 text-center font-medium">2</td>
+                                <td class="p-3 border border-slate-200 font-semibold">Predasi (Makan &amp; Dimakan)</td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" value="Belalang memangsa Rumput, Katak memangsa Belalang" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" placeholder="Tuliskan analisis hubungan timbal balik..." class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border border-slate-200 text-center font-medium">3</td>
+                                <td class="p-3 border border-slate-200 font-semibold">Simbiosis Mutualisme</td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" value="Kupu-kupu dan Bunga tanaman di kebun madrasah" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" placeholder="Tuliskan analisis hubungan timbal balik..." class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border border-slate-200 text-center font-medium">4</td>
+                                <td class="p-3 border border-slate-200 font-semibold">Kompetisi (Perebutan Sumber)</td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" value="Ayam dan Burung bersaing mendapatkan biji-bijian" class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                                <td class="p-3 border border-slate-200">
+                                    <input type="text" placeholder="Tuliskan analisis hubungan timbal balik..." class="w-full p-2 border border-slate-300 rounded focus:ring-2 focus:ring-madrasah-500">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex justify-between pt-4">
+                    <button onclick="switchTab('simulasi')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+                        ← Kembali
+                    </button>
+                    <button onclick="switchTab('evaluasi')" class="bg-madrasah-600 hover:bg-madrasah-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                        Lanjut ke Latihan HOTS ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: LATIHAN HOTS & KUIS -->
+        <section id="tab-evaluasi" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h2 class="text-xl font-bold text-slate-900">Uji Kompetensi &amp; Soal HOTS (Higher Order Thinking Skills)</h2>
+                    <p class="text-slate-600 text-sm mt-1">Kerjakan soal pilihan ganda analitis berikut dan periksa jawaban Anda secara instan.</p>
+                </div>
+
+                <!-- Quiz Container -->
+                <div class="space-y-6">
+                    <!-- Soal 1 -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-madrasah-100 text-madrasah-800 text-xs font-bold px-2.5 py-1 rounded">Soal 1 (Level C4 - Analisis)</span>
+                            <span class="text-xs text-slate-500 font-medium">Pilihan Ganda</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-900">
+                            Dalam suatu ekosistem sawah di Malang, petani menggunakan pestisida kimia berlebihan untuk membasmi hama wereng. Berdasarkan prinsip jaring makanan, apa dampak jangka panjang bagi populasi burung pemangsa (elang/kepodang) di ekosistem tersebut?
+                        </p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q1" value="A" class="accent-madrasah-600">
+                                <span>A. Populasi burung meningkat pesat karena hama wereng musnah.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q1" value="B" class="accent-madrasah-600">
+                                <span>B. Populasi burung mengalami penurunan drastis akibat akumulasi racun pestisida melalui biomagnifikasi rantai makanan.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q1" value="C" class="accent-madrasah-600">
+                                <span>C. Burung beralih menjadi herbivora pemakan tanaman padi.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q1" value="D" class="accent-madrasah-600">
+                                <span>D. Tidak ada pengaruh apa pun terhadap karnivora puncak.</span>
+                            </label>
+                        </div>
+                        <div class="pt-2">
+                            <button onclick="checkQuiz(1, 'B')" class="bg-madrasah-600 hover:bg-madrasah-700 text-white px-4 py-1.5 rounded-lg text-xs font-semibold transition">
+                                Periksa Jawaban 1
+                            </button>
+                            <div id="q1-feedback" class="mt-2 text-xs font-medium hidden"></div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 2 -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-madrasah-100 text-madrasah-800 text-xs font-bold px-2.5 py-1 rounded">Soal 2 (Level C5 - Evaluasi)</span>
+                            <span class="text-xs text-slate-500 font-medium">Pilihan Ganda</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-900">
+                            Jika suatu hari populasi ular di ekosistem kebun tiba-tiba punah karena perburuan liar, bagaimana prediksi perubahan yang paling rasional terhadap populasi tikus dan tanaman padi?
+                        </p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q2" value="A" class="accent-madrasah-600">
+                                <span>A. Populasi tikus meningkat pesat, sehingga stok tanaman padi menurun drastis akibat diserang tikus.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q2" value="B" class="accent-madrasah-600">
+                                <span>B. Tanaman padi semakin subur karena tidak ada hewan yang memakannya.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q2" value="C" class="accent-madrasah-600">
+                                <span>C. Populasi tikus punah dengan sendirinya tanpa merusak padi.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-madrasah-50 transition">
+                                <input type="radio" name="q2" value="D" class="accent-madrasah-600">
+                                <span>D. Keseimbangan ekosistem tetap terjaga secara otomatis.</span>
+                            </label>
+                        </div>
+                        <div class="pt-2">
+                            <button onclick="checkQuiz(2, 'A')" class="bg-madrasah-600 hover:bg-madrasah-700 text-white px-4 py-1.5 rounded-lg text-xs font-semibold transition">
+                                Periksa Jawaban 2
+                            </button>
+                            <div id="q2-feedback" class="mt-2 text-xs font-medium hidden"></div>
+                        </div>
+                    </div>
+
+                    <!-- Soal Esai Analitis -->
+                    <div class="bg-madrasah-50 p-5 rounded-xl border border-madrasah-100 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-madrasah-600 text-white text-xs font-bold px-2.5 py-1 rounded">Soal Esai Analitis (HOTS)</span>
+                            <span class="text-xs text-madrasah-800 font-medium">Uraian Kritis</span>
+                        </div>
+                        <p class="text-sm font-medium text-slate-900">
+                            Sebagai bagian dari gerakan Adiwiyata MTs di Kota Malang, analisislah bagaimana hubungan timbal balik antara manusia dan ekosistem sungai (contoh: Sungai Brantas) dapat diperbaiki melalui pengelolaan sampah berbasis ekologi!
+                        </p>
+                        <textarea rows="4" placeholder="Tuliskan analisis dan argumen ilmiah Anda di sini..." class="w-full p-3 bg-white border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-madrasah-500"></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-between pt-4">
+                    <button onclick="switchTab('tabel')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+                        ← Kembali
+                    </button>
+                    <button onclick="window.print()" class="bg-madrasah-600 hover:bg-madrasah-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                        🖨️ Cetak / Selesaikan LKPD
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto text-center text-xs text-slate-500 print:hidden">
+        <p>MGMP IPA Madrasah Tsanawiyah (MTs) Kota Malang © 2026 — Kurikulum Mendalam &amp; Adiwiyata</p>
+    </footer>
+
+    <!-- JavaScript Simulation & Logic -->
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-madrasah-600', 'text-white', 'shadow');
+                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            });
+            
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            activeBtn.classList.add('bg-madrasah-600', 'text-white', 'shadow');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Ecosystem Simulation Logic & Chart.js
+        let ecoChart = null;
+
+        function initChart() {
+            const ctx = document.getElementById('ecosystemChart').getContext('2d');
+            ecoChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+                    datasets: [
+                        {
+                            label: 'Produsen (Tanaman)',
+                            data: [100, 95, 90, 85, 80, 78, 75],
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Herbivora',
+                            data: [60, 58, 55, 52, 50, 48, 45],
+                            borderColor: '#2563eb',
+                            backgroundColor: 'transparent',
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Karnivora',
+                            data: [30, 28, 26, 25, 24, 22, 20],
+                            borderColor: '#9333ea',
+                            backgroundColor: 'transparent',
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Pengurai',
+                            data: [45, 46, 48, 50, 52, 53, 55],
+                            borderColor: '#d97706',
+                            backgroundColor: 'transparent',
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 200,
+                            grid: { color: '#f1f5f9' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateSimulation() {
+            const pVal = parseInt(document.getElementById('slider-produsen').value);
+            const hVal = parseInt(document.getElementById('slider-herbivora').value);
+            const kVal = parseInt(document.getElementById('slider-karnivora').value);
+            const aVal = parseInt(document.getElementById('slider-abiotik').value);
+
+            document.getElementById('val-produsen').innerText = pVal + ' unit';
+            document.getElementById('val-herbivora').innerText = hVal + ' ekor';
+            document.getElementById('val-karnivora').innerText = kVal + ' ekor';
+            document.getElementById('val-abiotik').innerText = aVal + '%';
+
+            let calcProd = Math.round(pVal * (aVal / 70));
+            let calcHerb = Math.round(hVal * (calcProd / 100));
+            let calcKarn = Math.round(kVal * (calcHerb / 60));
+            let calcPeng = Math.round(45 + (100 - aVal) * 0.3);
+
+            document.getElementById('stat-p').innerText = calcProd;
+            document.getElementById('stat-h').innerText = calcHerb;
+            document.getElementById('stat-k').innerText = calcKarn;
+            document.getElementById('stat-d').innerText = calcPeng;
+
+            const statusEl = document.getElementById('env-status');
+            if (aVal < 30 || calcProd < 25) {
+                statusEl.innerText = 'KRITIS (EKOSISTEM TERTEKAN)';
+                statusEl.className = 'font-bold text-red-600';
+            } else if (Math.abs(calcProd - calcHerb) > 80) {
+                statusEl.innerText = 'WASPADA (KETIDAKSEIMBANGAN TROFIK)';
+                statusEl.className = 'font-bold text-amber-600';
+            } else {
+                statusEl.innerText = 'SEIMBANG (STABIL)';
+                statusEl.className = 'font-bold text-madrasah-600';
+            }
+
+            if (ecoChart) {
+                ecoChart.data.datasets[0].data = [calcProd+5, calcProd, calcProd-3, calcProd, calcProd+2, calcProd-1, calcProd];
+                ecoChart.data.datasets[1].data = [calcHerb+2, calcHerb, calcHerb-2, calcHerb+1, calcHerb, calcHerb-1, calcHerb];
+                ecoChart.data.datasets[2].data = [calcKarn-1, calcKarn, calcKarn+1, calcKarn, calcKarn-1, calcKarn, calcKarn];
+                ecoChart.data.datasets[3].data = [calcPeng, calcPeng+1, calcPeng, calcPeng+2, calcPeng, calcPeng+1, calcPeng];
+                ecoChart.update();
+            }
+        }
+
+        function resetSimulation() {
+            document.getElementById('slider-produsen').value = 100;
+            document.getElementById('slider-herbivora').value = 60;
+            document.getElementById('slider-karnivora').value = 30;
+            document.getElementById('slider-abiotik').value = 70;
+            updateSimulation();
+        }
+
+        // Quiz Evaluation Checker
+        function checkQuiz(questionNum, correctAnswer) {
+            const selected = document.querySelector(`input[name="q${questionNum}"]:checked`);
+            const feedbackEl = document.getElementById(`q${questionNum}-feedback`);
+            feedbackEl.classList.remove('hidden');
+
+            if (!selected) {
+                feedbackEl.innerText = '⚠️ Silakan pilih salah satu opsi jawaban terlebih dahulu!';
+                feedbackEl.className = 'mt-2 text-xs font-medium text-amber-600';
+                return;
+            }
+
+            if (selected.value === correctAnswer) {
+                if (questionNum === 1) {
+                    feedbackEl.innerText = `✅ Benar! Pembahasan: Pestisida kimia yang tidak dapat diuraikan akan mengalami biomagnifikasi (akumulasi racun) seiring mengalirnya rantai makanan menuju konsumen tingkat tinggi seperti burung pemangsa.`;
+                } else {
+                    feedbackEl.innerText = `✅ Benar! Pembahasan: Ular berperan sebagai pengendali populasi tikus. Jika ular punah, populasi tikus akan meledak karena kehilangan predator alami, sehingga tanaman padi akan habis diserang tikus.`;
+                }
+                feedbackEl.className = 'mt-2 text-xs font-medium text-madrasah-700 bg-madrasah-50 p-2.5 rounded border border-madrasah-200';
+            } else {
+                feedbackEl.innerText = `❌ Kurang tepat. Silakan tinjau kembali konsep piramida makanan dan peran trofik dalam ekosistem.`;
+                feedbackEl.className = 'mt-2 text-xs font-medium text-red-600 bg-red-50 p-2.5 rounded border border-red-200';
+            }
+        }
+
+        // Initialize simulation on window load
+        window.onload = function() {
+            initChart();
+            updateSimulation();
+        };
+    </script>
+</body>
+</html>
